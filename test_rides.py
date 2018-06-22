@@ -39,6 +39,11 @@ class RidesTestCase(unittest.TestCase):
         self.assertEqual(result["message"],"ride request received")
         self.assertEqual(response.status_code, 201)
 
+    def test_add_specific_ride(self):
+        """Test API can add a specific ride request"""
+        response = self.client.get('api/v1/rides/1', data =json.dumps(self.data) , content_type = 'application/json')
+        self.assertEqual(response.status_code, 200)
+
 
 if __name__ == '__main__':
      unittest.main() 
