@@ -31,3 +31,14 @@ class RidesTestCase(unittest.TestCase):
         """Test API can get all rides(GET request)"""
         response = self.client.get('/api/v1/rides',data = json.dumps(self.data) , content_type = 'application/json')
         self.assertEqual(response.status_code, 200)
+
+    def test_add_ride_request(self):
+        """Test API can add ride request(POST request) """
+        response = self.client.post('/api/v1/orderride', data = json.dumps(self.data) , content_type = 'application/json')
+        result = json.loads(response.data)
+        self.assertEqual(result["message"],"ride request received")
+        self.assertEqual(response.status_code, 201)
+
+
+if __name__ == '__main__':
+     unittest.main() 
