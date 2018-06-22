@@ -20,9 +20,14 @@ class RidesTestCase(unittest.TestCase):
         }
 
     def test_add_ride(self):
-        """Test Api can add a ride()"""
+        """Test Api can add a ride(POST request)"""
         response = self.client.post(
             '/api/v1/rides', data=json.dumps(self.data), content_type='application/json')
         result = json.loads(response.data)
         self.assertEqual(result["message"], "ride successfully added")
         self.assertEqual(response.status_code, 201)
+
+    def test_get_all_rides(self):
+        """Test API can get all rides(GET request)"""
+        response = self.client.get('/api/v1/rides',data = json.dumps(self.data) , content_type = 'application/json')
+        self.assertEqual(response.status_code, 200)
