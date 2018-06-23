@@ -13,7 +13,7 @@ class UserTestCase(unittest.TestCase):
         self.app_context = self.app.app_context()
         self.app_context.push()
         self.data = {"username": "Dee",
-                     "full_name": "Didi Kashemwa",
+                     "fullname": "Didi Kashemwa",
                      "email": "didikashemwa@gmail.com",
                      "password": "yaay"
                      }
@@ -50,12 +50,11 @@ class UserTestCase(unittest.TestCase):
         self.assertEqual(result["message"], "successfully registered")
         self.assertEqual(response.status_code, 201)
 
-
     # def test_wrong_signup(self):
     #     """Test API cannot successfully register a new user if any field is left blank(POST request)"""
-	# 	response = self.client.post('/api/v1/user/signup', data=json.dumps({'username': 'Dee','full_name':'Didi Kashemwa', 'email': '', 'password': ''}), content_type='application/json')
+        # 	response = self.client.post('/api/v1/user/signup', data=json.dumps({'username': 'Dee','':'Didi Kashemwa', 'email': '', 'password': ''}), content_type='application/json')
     #     result = json.loads(response.data)
-	# 	self.assertEqual(result["message"], "All fields required")
+        # 	self.assertEqual(result["message"], "All fields required")
     #     self.assertEqual(response.status_code, 400)
 
 
