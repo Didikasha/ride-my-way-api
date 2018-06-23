@@ -16,7 +16,7 @@ requests = [Request(ride_id=1234, customer_name="Jane Doe",
               destination="Karen", price=250, date=12/12/18, time=1830)]
 
 
-# class UserSignupAPI(Resource):
+# class UserSignupApi(Resource):
 #     def post(self):
 #         user=request.get_json
 #         if user.get('username') is None or user.get('fullname') is None or user.get ('email') or user.get('password') is None:
