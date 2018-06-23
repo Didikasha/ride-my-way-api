@@ -7,9 +7,11 @@ class RidesTestCase(unittest.TestCase):
     """This is the class for rides test cases"""
 
     def setUp(self):
-        """Creates the app as a test client"""
-        self.app=app
+        """Initialize app and define test variables"""
+        self.app = app
         self.client = self.app.test_client()
+        self.app_context = self.app.app_context()
+        self.app_context.push()
         self.data = {
             'ride_id': 1,
             'driver_name': 'John Doe',
@@ -32,18 +34,53 @@ class RidesTestCase(unittest.TestCase):
         response = self.client.get('/api/v1/rides',data = json.dumps(self.data) , content_type = 'application/json')
         self.assertEqual(response.status_code, 200)
 
-    def test_add_ride_request(self):
-        """Test API can add ride request(POST request) """
-        response = self.client.post('/api/v1/orderride', data = json.dumps(self.data) , content_type = 'application/json')
+    def test_update_ride(self):
+        """Test API can modify/update details of a given ride using ride_id (PUT request)"""
+        response = self.client.put('/api/v1/rides/2', data = json.dumps(self.data) , content_type = 'application/json')
         result = json.loads(response.data)
-        self.assertEqual(result["message"],"ride request received")
-        self.assertEqual(response.status_code, 201)
+        self.assertEqual(result["message"], "ride has been modified")
+        self.assertEqual(response.status_code, 200) 
 
-    def test_add_specific_ride(self):
-        """Test API can add a specific ride request"""
-        response = self.client.get('api/v1/rides/1', data =json.dumps(self.data) , content_type = 'application/json')
-        self.assertEqual(response.status_code, 200)
+    def test_delete_ride(self):
+        """Test API can delete a ride using ride_id (DELETE request)"""
+        response = self.client.delete('/api/v1/rides/4')
+        result = json.loads(response.data)
+        self.assertEqual(result["message"], "ride deleted")
+        self.assertEqual(response.status_code, 200) 
 
+class RequestTestCase(unittest.TestCase):
+
+    """This is the class for requests test cases"""
+
+    def setUp(self):
+        """Initialize app and define test variables"""
+        self.app = app
+        self.client = self.app.test_client()
+        self.app_context = self.app.app_context()
+        self.app_context.push()
+        self.data = {
+            'ride_id': 1,
+            'customer_name': 'Jane Doe',
+            'destination': 'Karen',
+            'price': 250,
+            'date': 16/6/2017,
+            'time': 1800
+        }
+
+
+
+    # def test_add_ride_request(self):
+    #     """Test API can add ride request(POST request) """
+    #     response = self.client.post('/api/v1/orderride', data = json.dumps(self.data) , content_type = 'application/json')
+    #     result = json.loads(response.data)
+    #     self.assertEqual(result["message"],"ride request received")
+    #     self.assertEqual(response.status_code, 201)
+
+    # def test_add_specific_ride(self):
+    #     """Test API can add a specific ride request"""
+    #     response = self.client.get('api/v1/rides/1', data =json.dumps(self.data) , content_type = 'application/json')
+    #     self.assertEqual(response.status_code, 200)
+ 
 
 if __name__ == '__main__':
      unittest.main() 
