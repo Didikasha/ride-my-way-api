@@ -1,5 +1,5 @@
 .vscode
-rides/
+rides/ #virtualenv
 *.pyc
 /.pytest_cache
 settings.json
