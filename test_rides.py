@@ -67,19 +67,24 @@ class RequestTestCase(unittest.TestCase):
             'time': 1800
         }
 
+    def test_add_request(self):
+        """Test API can add a request (POST request)"""
+        response = self.client.post('/api/v1/requests', data = json.dumps(self.data) , content_type = 'application/json')
+        result = json.loads(response.data)
+        self.assertEqual(result["message"], "request added")
+        self.assertEqual(response.status_code, 201)
 
+    def test_get_all_requests(self):
+        """Test API can get all requests (GET request)"""
+        response = self.client.get('/api/v1/requests', data = json.dumps(self.data) , content_type = 'application/json')
+        self.assertEqual(response.status_code, 200) 
 
-    # def test_add_ride_request(self):
-    #     """Test API can add ride request(POST request) """
-    #     response = self.client.post('/api/v1/orderride', data = json.dumps(self.data) , content_type = 'application/json')
-    #     result = json.loads(response.data)
-    #     self.assertEqual(result["message"],"ride request received")
-    #     self.assertEqual(response.status_code, 201)
-
-    # def test_add_specific_ride(self):
-    #     """Test API can add a specific ride request"""
-    #     response = self.client.get('api/v1/rides/1', data =json.dumps(self.data) , content_type = 'application/json')
-    #     self.assertEqual(response.status_code, 200)
+    def test_update_request(self):
+        """Test can modify/update details a request using request_id (PUT request)"""
+        response = self.client.put('/api/v1/requests/1', data = json.dumps(self.data) , content_type = 'application/json')
+        result = json.loads(response.data)
+        self.assertEqual(result["message"], "request has been modified")
+        self.assertEqual(response.status_code, 200)
  
 
 if __name__ == '__main__':
