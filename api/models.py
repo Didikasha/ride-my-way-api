@@ -31,3 +31,23 @@ class Ride_Schema():
     date = fields.Int()
     time = fields.Int()
 
+class Request():
+    def __init__(self,ride_id, customer_name, destination, price, date, time):
+        self.ride_id = ride_id
+        self.customer_name = customer_name
+        self.destination = destination
+        self.price = price
+        self.date = date
+        self.time = time
+
+class Request_Schema():
+    ride_id=fields.Int()
+    customer_name = fields.Str()
+    destination = fields.Str()
+    price= fields.Int()
+    date = fields.Int()
+    time = fields.Int()
+
+    
+
+
