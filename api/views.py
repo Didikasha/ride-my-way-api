@@ -15,11 +15,23 @@ rides = [Ride(ride_id=1234, driver_name="John Doe",
 requests = [Request(ride_id=1234, customer_name="Jane Doe",
               destination="Karen", price=250, date=12/12/18, time=1830)]
 
+class UserSignupApi(Resource):
+    def post(self):
+        user=request.get_json
+        if user.get('username') is None or user.get('fullname') is None or user.get ('email') or user.get('password') is None:
+            result = jsonify({'message': 'All fields required'}) 
+            result.status_code=400
+            return  result
 
-# class UserSignupApi(Resource):
-#     def post(self):
-#         user=request.get_json
-#         if user.get('username') is None or user.get('fullname') is None or user.get ('email') or user.get('password') is None:
+        u = User(username=user.get('username'), fullname=user.get('fullname'), email=user.get('email'), password=user.get('password'))
+
+        users.append(u)
+
+        result = jsonify({'message': 'Successfully registered'})
+        result.status_code = 201
+        return result
+
+
 
 
 # class RidesApi(Resource):
@@ -41,6 +53,7 @@ requests = [Request(ride_id=1234, customer_name="Jane Doe",
         # result=jsonify()
 
 
+api.add_resource(UserSignupApi, '/api/v1/user/signup')
 
 # api.add_resource(RidesApi,'/api/v1/rides')
 
