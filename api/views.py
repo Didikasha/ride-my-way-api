@@ -15,37 +15,37 @@ rides = [Ride(ride_id=1234, driver_name="John Doe",
 requests = [Request(ride_id=1234, customer_name="Jane Doe",
               destination="Karen", price=250, date="12/12/18", time=1830)]
 
-class UserSignupApi(Resource):
-    def post(self):
-        user=request.get_json()
-        if not user['username']  or not user['fullname'] or not user['email'] or not user['password']:
-            result = jsonify({'message': 'All fields required'}) 
-            result.status_code=400
-            return result
+# class UserSignupApi(Resource):
+#     def post(self):
+#         user=request.get_json()
+#         if not user['username']  or not user['fullname'] or not user['email'] or not user['password']:
+#             result = jsonify({'message': 'All fields required'}) 
+#             result.status_code=400
+#             return result
 
-        u = User(user['username'], user['fullname'],user['email'], user['password'])
+#         u = User(user['username'], user['fullname'],user['email'], user['password'])
 
-        users.append(u)
+#         users.append(u)
 
-        result = jsonify({"message": "Successfully registered"})
-        result.status_code = 201
-        return result
+#         result = jsonify({"message": "Successfully registered"})
+#         result.status_code = 201
+#         return result
 
-class UserLoginApi(Resource):
-    def post (self):
-        access = request.get_json()
-        username = access['username']
-        password = access['password']
-        for user in users:
-            if username == user.username:
-                if password ==user.password:
-                    result = jsonify({"message": "You are successfully logged in"})
-                    result.status_code = 200
-                    return result
-            else:
-                result = jsonify({"message": 'Wrong password or username.'})
-                result.status_code = 401
-                return result
+# class UserLoginApi(Resource):
+#     def post (self):
+#         access = request.get_json()
+#         username = access['username']
+#         password = access['password']
+#         for user in users:
+#             if username == user.username:
+#                 if password ==user.password:
+#                     result = jsonify({"message": "You are successfully logged in"})
+#                     result.status_code = 200
+#                     return result
+#             else:
+#                 result = jsonify({"message": 'Wrong password or username.'})
+#                 result.status_code = 401
+#                 return result
 
 
 
@@ -70,8 +70,8 @@ class RidesApi(Resource):
         return itemlist
 
 
-api.add_resource(UserSignupApi, '/api/v1/user/signup')
-api.add_resource(UserLoginApi, '/api/v1/user/login')
+# api.add_resource(UserSignupApi, '/api/v1/user/signup')
+# api.add_resource(UserLoginApi, '/api/v1/user/login')
 api.add_resource(RidesApi,'/api/v1/rides')
 
 
