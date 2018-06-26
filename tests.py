@@ -2,12 +2,13 @@ from api.views import app
 import unittest
 import json
 
+from Base import BaseClass
 
-class UserTestCase(unittest.TestCase):
+
+class UserTestCase(BaseClass):
     """This class represents the user login and signup testcase"""
 
     
-
     def test_login(self):
         """Test API can successfully log in registered users using username and password(POST request)"""
         response = self.client.post('/api/v1/user/login', data=json.dumps(
