@@ -44,12 +44,22 @@ class UserTestCase(unittest.TestCase):
 
     def test_signup(self):
         """Test API can successfully register a new user (POST request)"""
-        data={'username': 'newuser','fullname':'bentley car','email':'newuser@gmail.com', 'password': 'goodpass'}
+        data = {'username': 'newuser', 'fullname': 'bentley car',
+                'email': 'newuser@gmail.com', 'password': 'goodpass'}
         response = self.client.post(
             '/api/v1/user/signup', data=json.dumps(data), content_type='application/json')
         result = json.loads(response.data)
         self.assertEqual(result["message"], "Successfully registered")
         self.assertEqual(response.status_code, 201)
+
+    # def test_cannot_signup_twice(self):
+    #     """Test API cannot register a user twice(POST request)"""
+    #     response = self.client.post('/api/v1/user/signup', data = json.dumps(self.data), content_type = 'application/json')
+    #     response2 = self.client.post('/api/v1/user/signup', data = json.dumps(self.data), content_type = 'application/json')
+    #     result = json.loads(response2.data)
+    #     self.assertEqual(result["message"], "User already exists")
+    #     self.assertEqual(response2.status_code, 203)
+
 
     # def test_wrong_signup(self):
     #     """Test API cannot successfully register a new user if any field is left blank(POST request)"""
@@ -57,6 +67,8 @@ class UserTestCase(unittest.TestCase):
     #     result = json.loads(response.data)
         # 	self.assertEqual(result["message"], "All fields required")
     #     self.assertEqual(response.status_code, 400)
+
+    
 
 
 if __name__ == '__main__':
