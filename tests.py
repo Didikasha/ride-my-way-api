@@ -6,17 +6,7 @@ import json
 class UserTestCase(unittest.TestCase):
     """This class represents the user login and signup testcase"""
 
-    def setUp(self):
-        """Initialize app and define test variables"""
-        self.app = app
-        self.client = self.app.test_client()
-        self.app_context = self.app.app_context()
-        self.app_context.push()
-        self.data = {"username": "Dee",
-                     "fullname": "Didi Kashemwa",
-                     "email": "didikashemwa@gmail.com",
-                     "password": "yaay"
-                     }
+    
 
     def test_login(self):
         """Test API can successfully log in registered users using username and password(POST request)"""
@@ -50,13 +40,6 @@ class UserTestCase(unittest.TestCase):
         result = json.loads(response.data)
         self.assertEqual(result["message"], "Successfully registered")
         self.assertEqual(response.status_code, 201)
-
-    # def test_wrong_signup(self):
-    #     """Test API cannot successfully register a new user if any field is left blank(POST request)"""
-        # 	response = self.client.post('/api/v1/user/signup', data=json.dumps({'username': 'Dee','':'Didi Kashemwa', 'email': '', 'password': ''}), content_type='application/json')
-    #     result = json.loads(response.data)
-        # 	self.assertEqual(result["message"], "All fields required")
-    #     self.assertEqual(response.status_code, 400)
 
 
 if __name__ == '__main__':
