@@ -16,7 +16,7 @@ class User_Schema(Schema):
 
 class Ride():
     def __init__(self, ride_id, driver_name, destination, price, date, time):
-        self.ride_id = random.randint(1,100)
+        self.ride_id = ride_id
         self.driver_name = driver_name
         self.destination = destination
         self.price = price
@@ -32,21 +32,14 @@ class Ride_Schema():
     time = fields.Int()
 
 class Request():
-    def __init__(self,ride_id, customer_name, destination, price, date, time):
+    def __init__(self,ride_id, customer_id):
         self.ride_id = random.randint(1,100)
-        self.customer_name = customer_name
-        self.destination = destination
-        self.price = price
-        self.date = date
-        self.time = time
-
+        self.customer_id=random.randint(1,100)
+        
 class Request_Schema():
     ride_id=fields.Int()
-    customer_name = fields.Str()
-    destination = fields.Str()
-    price= fields.Int()
-    date = fields.Int()
-    time = fields.Int()
+    customer_id = fields.Int()
+    
 
 
 
