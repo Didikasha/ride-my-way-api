@@ -60,6 +60,18 @@ class RidesApi(Resource):
         result.status_code = 201
         return result
 
+    def get(self, id=None):
+
+        if id:
+            for ride in rides:
+                return {'ride': [ride.__dict__ for ride in rides if ride.ride_id==id]}
+            return {'message':"Rides not found"}
+
+        for ride in rides:
+            return {'rides':[ride.__dict__ for ride in rides]}
+        return {'message':"Rides not found"}
+        
+
 
     # def get(self, ride_id=None):
     #     if ride_id != None:

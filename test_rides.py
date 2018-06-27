@@ -32,8 +32,16 @@ class RidesTestCase(unittest.TestCase):
     def test_get_all_rides(self):
         """Test API can get all rides(GET request)"""
         response = self.client.get(
-            'http://127.0.0.1:5000/api/v1/rides/')
+            'http://127.0.0.1:5000/api/v1/rides/',content_type='application/json')
         self.assertEqual(response.status_code, 200)
+
+    def test_get_single_ride(self):
+        """Test API can getsingle ride by id(GET request)"""
+        response = self.client.get(
+            'http://127.0.0.1:5000/api/v1/rides/1', content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+
+
 
 class RequestTestCase(unittest.TestCase):
 
