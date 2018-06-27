@@ -2,30 +2,31 @@ from flask import Flask, request, jsonify
 from flask_restful import Api, Resource
 import random
 import json
-
-from api.models import User, Ride, Request, User_Schema, Ride_Schema, Request_Schema
+from api.models import User, Ride, Request
 
 app = Flask(__name__)
 api = Api(app)
 
-rides_list=[]# List to hold dummy ride data
+# rides_list=[]# List to hold dummy ride data
 
-users = [User(username="Dee", fullname="Didi Kashemwa",
-              email="didikashemwa@gmail.com", password="Yaay")]
+# users = [User(username="Dee", fullname="Didi Kashemwa",
+#               email="didikashemwa@gmail.com", password="Yaay")]
 
-#creating 3 dummy users using the init method in models that takes 6 positional arguments
-ride1 = Ride(3, "Celina Maka", "Kando",250, "12/12/18", 1835)
-ride3 = Ride(5, "Su mbarika", "Simjui",250, "12/12/18", 1835)
-ride4 = Ride(6, "Kamade mende", "Mtaa",250, "12/12/18", 1835)
+# #creating 3 dummy users using the init method in models that takes 6 positional arguments
+# ride1 = Ride(3, "Celina Maka", "Kando",250, "12/12/18", 1835)
+# ride3 = Ride(5, "Su mbarika", "Simjui",250, "12/12/18", 1835)
+# ride4 = Ride(6, "Kamade mende", "Mtaa",250, "12/12/18", 1835)
 
-#adding the dummy rides to the list
-rides_list.append(ride1)
-rides_list.append(ride3)
-rides_list.append(ride4)
+# #adding the dummy rides to the list
+# rides_list.append(ride1)
+# rides_list.append(ride3)
+# rides_list.append(ride4)
 
 
-requests = [Request(ride_id=123, customer_id=234)]
-
+# requests = [Request(ride_id=123, customer_id=234)]
+users = []
+rides =[]
+requests =[]
 
 class UserSignupApi(Resource):
     def post(self):
@@ -47,9 +48,9 @@ class UserSignupApi(Resource):
 
 class UserLoginApi(Resource):
     def post(self):
-        access = request.get_json()
-        username = access['username']
-        password = access['password']
+        data = request.get_json()
+        username = data['username']
+        password = data['password']
         for user in users:
             if username == user.username:
                 if password == user.password:
@@ -58,42 +59,43 @@ class UserLoginApi(Resource):
                     result.status_code = 200
                     return result
             else:
-                result = jsonify({"message": 'Wrong password or username.'})
+                result = jsonify({"message": "Wrong password or username."})
                 result.status_code = 401
                 return result
 
 
 class RidesApi(Resource):
     def post(self):
-        new_rides = request.get_json()
-        r = Ride(new_rides['ride_id'], new_rides['driver_name'], new_rides['destination'],
-                 new_rides['price'], new_rides['date'], new_rides['time'])
+        data = request.get_json
+        ride_id=len(rides)+1,
+        driver_name=data['driver_name'],destination =data['destination'], price=data['price'], date=data['date'], time=data['time']
+        ride = Ride(ride_id=ride_id, driver_name=driver_name, destination=destination, price=price, date=date, time=time)
 
-        #rides_list holds ride info it is our dummy database
-        rides_list.append(r)
+        rides.append(ride)
 
         result = jsonify({"message": "ride added"})
         result.status_code = 201
         return result
 
-    def get(self, ride_id=None):
-        if ride_id != None:
-            ride_items = [] #empty list to hold result
-            print(ride_id)
-            ride_items = [Ride for Ride in rides_list if Ride.ride_id == int(ride_id)]
-            print(ride_items)
-            if len(ride_items) < 1:
-                return 'Item not found', 404
-            return ({'ride': {'Id': ride_items[0].ride_id, 'driver': ride_items[0].driver_name, 'destination': ride_items[0].destination}},{'message':'Gets a specific ride'}), 200
-        else:
-            manyitems = []
-            if len(rides_list) < 1:
-                return 'rides not found', 404
-            #looping through the list to print its contents
-            for Ride in rides_list:
-                manyitems.append(
-                    {'ID': Ride.ride_id, 'title': Ride.driver_name, 'Destination': Ride.destination})
-            return manyitems, 200
+
+    # def get(self, ride_id=None):
+    #     if ride_id != None:
+    #         ride_items = [] #empty list to hold result
+    #         print(ride_id)
+    #         ride_items = [Ride for Ride in rides_list if Ride.ride_id == int(ride_id)]
+    #         print(ride_items)
+    #         if len(ride_items) < 1:
+    #             return 'Item not found', 404
+    #         return ({'ride': {'Id': ride_items[0].ride_id, 'driver': ride_items[0].driver_name, 'destination': ride_items[0].destination}},{'message':'Gets a specific ride'}), 200
+    #     else:
+    #         manyitems = []
+    #         if len(rides_list) < 1:
+    #             return 'rides not found', 404
+    #         #looping through the list to print its contents
+    #         for Ride in rides_list:
+    #             manyitems.append(
+    #                 {'ID': Ride.ride_id, 'title': Ride.driver_name, 'Destination': Ride.destination})
+    #         return manyitems, 200
         
 
 
