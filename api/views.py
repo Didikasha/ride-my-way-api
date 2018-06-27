@@ -7,23 +7,6 @@ from api.models import User, Ride, Request
 app = Flask(__name__)
 api = Api(app)
 
-# rides_list=[]# List to hold dummy ride data
-
-# users = [User(username="Dee", fullname="Didi Kashemwa",
-#               email="didikashemwa@gmail.com", password="Yaay")]
-
-# #creating 3 dummy users using the init method in models that takes 6 positional arguments
-# ride1 = Ride(3, "Celina Maka", "Kando",250, "12/12/18", 1835)
-# ride3 = Ride(5, "Su mbarika", "Simjui",250, "12/12/18", 1835)
-# ride4 = Ride(6, "Kamade mende", "Mtaa",250, "12/12/18", 1835)
-
-# #adding the dummy rides to the list
-# rides_list.append(ride1)
-# rides_list.append(ride3)
-# rides_list.append(ride4)
-
-
-# requests = [Request(ride_id=123, customer_id=234)]
 users = []
 rides =[]
 requests =[]
